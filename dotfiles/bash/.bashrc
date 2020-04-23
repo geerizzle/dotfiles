@@ -82,6 +82,7 @@ alias ll='br'
 alias la='ls -al'
 alias l='ls -CF'
 alias lol-game='WINEPREFIX=~/Games/LoL WINEARCH=win32 /opt/wine-lol/bin/wine ~/Games/LoL/drive_c/Riot\ Games/League\ of\ Legends/LeagueClient.exe'
+alias update-all='sudo pacman -Syu && aur sync -u'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
