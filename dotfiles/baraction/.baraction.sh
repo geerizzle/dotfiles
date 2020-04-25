@@ -9,8 +9,8 @@ hdd() {
 
 ## RAM
 mem() {
-  mem=`free | awk '/Mem/ {printf "%dM/%dM\n", $3 / 1024.0, $2 / 1024.0 }'`
-  echo -e "$mem"
+  mem=`free | awk '/Mem/ {printf "%dM", $3 / 1024.0, $2 / 1024.0 }'`
+  echo -e "MEM: $mem"
 }
 
 ## CPU
@@ -30,7 +30,7 @@ vol() {
     echo -e "VOL: $vol"
 }
 
-SLEEP_SEC=3
+SLEEP_SEC=2
 #loops forever outputting a line every SLEEP_SEC secs
 
 # It seems that we are limited to how many characters can be displayed via
@@ -38,6 +38,6 @@ SLEEP_SEC=3
 # So I would love to add more functions to this script but it makes the 
 # echo output too long to display correctly.
 while :; do
-    echo "+@fg=1; +@fn=1;+@fn=0; $(cpu) +@fg=0; | +@fg=2; +@fn=1;+@fn=0; $(mem) +@fg=0; | +@fg=3; +@fn=1;+@fn=0; $(hdd) +@fg=0; | +@fg=4; +@fn=1;+@fn=0; $(vol) +@fg=0; |"
-	sleep $SLEEP_SEC
+    echo "$(cpu) | $(mem) | $(hdd) $(vol)" 
+    sleep $SLEEP_SEC
 done
