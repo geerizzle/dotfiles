@@ -32,6 +32,7 @@ Plugin 'alvan/vim-closetag'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'morhetz/gruvbox'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -39,10 +40,11 @@ filetype plugin indent on    " required
 " ==================================
 "            THEMES
 " ==================================
-set background=dark
-set t_Co=256
-colorscheme PaperColor 
-let g:airline_theme='angr'
+set background=dark " Change this when you want to change the mode of the colorscheme
+set t_Co=256 " Enables the 256 colors in vim
+colorscheme gruvbox " Sets your default colorscheme
+""let g:airline_theme='angr' " Adds custom airline-vim theme, by default it is
+"                              the theme from the colorscheme
 "===================================
 "	GENERAL SETTINGS 
 "===================================
