@@ -60,17 +60,9 @@ command! MakeTags !ctags -R
 "================================
 " Enabling the mouse intergration with Alacritty
 set ttymouse=sgr
-"=================================
-"	NERDTREE
-"================================
-map <C-n> :NERDTreeToggle<CR>
-" open the NerdTree automatically on startup
-autocmd vimenter * NERDTree
-" auto close NerdTree when it`s the only window left
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"=========================
+"=============================
 "	POWERLINE
-"=========================
+"============================
 let g:powerline_pycmd="py3"
 :set laststatus=2
 "=========================
