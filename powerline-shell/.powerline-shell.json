@@ -1,0 +1,18 @@
+{
+  "segments": [
+    "virtual_env",
+    "username",
+    "ssh",
+    "cwd",
+    "git",
+    "hg",
+    "root",
+    "time"
+  ],
+  "cwd": {
+    "mode": "dironly" 
+  },
+  "time": {
+    "format": "%H:%M"
+  }
+}
