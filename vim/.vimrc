@@ -45,6 +45,7 @@ set t_Co=256 " Enables the 256 colors in vim
 colorscheme gruvbox " Sets your default colorscheme
 ""let g:airline_theme='angr' " Adds custom airline-vim theme, by default it is
 "                              the theme from the colorscheme
+" Adds the transperncy to vim
 "===================================
 "	GENERAL SETTINGS 
 "===================================
