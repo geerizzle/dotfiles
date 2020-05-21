@@ -28,6 +28,6 @@ vol() {
 SLEEP_SEC=2
 
 while :; do
-    echo "$(cpu) |  $(mem) | $(hdd) | $(vol)" 
+    echo "+@fg=6; $(cpu) +@fg=0; |  +@fg=2; $(mem) +@fg=0; | +@fg=3; $(hdd) +@fg=0; | +@fg=4; $(vol)" 
     sleep $SLEEP_SEC
 done
