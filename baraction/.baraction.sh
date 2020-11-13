@@ -1,8 +1,8 @@
 #!/bin/bash
 
 hdd() {
-  hdd="$(df -h | awk 'NR==4{print $3, $5}')"
-  echo -e "HDD: $hdd"
+  hdd="$(df -h | awk 'NR==3{print $4, $5}')"
+  echo -e "NVMe: $hdd"
 }
 
 mem() {
