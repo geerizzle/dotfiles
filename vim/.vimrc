@@ -42,6 +42,7 @@ filetype plugin indent on    " required
 " ==================================
 set background=dark " Change this when you want to change the mode of the colorscheme
 set t_Co=256 " Enables the 256 colors in vim
+"colors zenburn
 colorscheme gruvbox " Sets your default colorscheme
 ""let g:airline_theme='angr' " Adds custom airline-vim theme, by default it is
 "                              the theme from the colorscheme
