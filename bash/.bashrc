@@ -84,7 +84,7 @@ alias l='ls -CF'
 alias lol-game='WINEPREFIX=~/Games/LoL WINEARCH=win32 /opt/wine-lol/bin/wine ~/Games/LoL/drive_c/Riot\ Games/League\ of\ Legends/LeagueClient.exe'
 alias update-all='sudo pacman -Syu && aur sync -u'
 alias remove-orphans='sudo pacman -Rns $(pacman -Qtdq)'
-alias set-monitors='xrandr --output eDP-1-1 --primary --mode 1920x1080 --rate 144.00 --output HDMI-0 --mode 1920x1080 --rate 60.00 --right-of eDP-1-1'
+alias set-monitors='xrandr --output eDP-1 --primary --mode 1920x1080 --rate 144.00 --output HDMI-1-0 --mode 1920x1080 --rate 60.00 --right-of eDP-1'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
