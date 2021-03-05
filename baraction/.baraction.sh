@@ -1,8 +1,13 @@
 #!/bin/bash
 
 hdd() {
-  hdd="$(df -h | awk 'NR==3{print $4, $5}')"
+  hdd="$(df -h | awk 'NR==4{print $4, $5}')"
   echo -e "NVMe: $hdd"
+}
+
+net() {
+  net="$(iwctl station wlan0 show | awk 'NR==7{print $3}')"
+  echo -e "NET: $net"
 }
 
 mem() {
@@ -31,6 +36,6 @@ vol() {
 SLEEP_SEC=2
 
 while :; do
-    echo "+@fg=0; $(kern) +@fg=0; | +@fg=0; $(cpu) +@fg=0; | +@fg=0; $(mem) +@fg=0; | +@fg=0; $(hdd) +@fg=0; | +@fg=0; $(vol)+@fg=0; |" 
+    echo "+@fg=7; $(net) +@fg=0; | +@fg=6; $(cpu) +@fg=0; | +@fg=2; $(mem) +@fg=0; | +@fg=3; $(hdd) +@fg=0; | +@fg=4; $(vol)+@fg=0; |" 
     sleep $SLEEP_SEC
 done
