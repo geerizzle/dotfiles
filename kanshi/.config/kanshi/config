@@ -4,7 +4,7 @@ profile docked {
 }
 
 output 'Microstep MSI G32C4 0x00000166' {
-    position 1920,0
+    position 0,0
     mode 1920x1080@143.9980
     scale 1.00
     transform normal

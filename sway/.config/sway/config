@@ -221,6 +221,15 @@ bindsym $mod+r mode "resize"
     bindsym Print exec grim
     # Autostart programs
     exec_always "pkill kanshi; kanshi &"
+    # Set screensharing variables
+    exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP \
+         dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+# Notification Daemon
+exec swaync
+
+# Toggle control center
+bindsym $mod+Shift+n exec swaync-client -t -sw
 
 # Borders
 default_border pixel 2
