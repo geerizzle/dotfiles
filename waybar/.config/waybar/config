@@ -2,9 +2,20 @@
 {
     "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 10, // Waybar height (to be removed for auto height)
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "custom/media"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["pulseaudio", "backlight","custom/runcat","memory","battery", "network","battery#bat2", "sway/language", "clock", "tray"],
+    "modules-left": ["sway/mode", "custom/media", "custom/runcat","memory", "idle_inhibitor"],
+    "modules-center": ["sway/workspaces", "sway/scratchpad"],
+    "modules-right": ["pulseaudio","battery", "network","battery#bat2", "sway/language", "clock", "temperature", "tray"],
+    "sway/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "󰖟",
+            "2": "",
+            "3": "",
+            "4": "󰋎",
+            "5": "",
+            "6": "󰍩"
+        }
+    },
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
@@ -74,7 +85,7 @@
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "format": "{}% 󰍛"
     },
     "temperature": {
         "critical-threshold": 80,
@@ -82,8 +93,8 @@
         "format-icons": ["", "", ""]
     },
     "backlight": {
-        "format": "{percent}% ",
-        "format-icons": ["", ""]
+        "format": "{percent}% {icon}",
+        "format-icons": ["󰃞", "󰃟", "󰃠"]
     },
     "battery": {
         "states": {

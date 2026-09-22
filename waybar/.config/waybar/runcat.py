@@ -22,11 +22,13 @@ def render_frames():
         color = json.load(open(os.path.expanduser("~/.cache/wal/colors.json")))["special"]["foreground"]
     except (OSError, KeyError, ValueError):
         color = "#ffffff"
-    os.makedirs(CACHE, exist_ok=True)
+    # One runcat runs per monitor: render in a private dir, then swap files in atomically.
+    tmp = os.path.join(CACHE, f".tmp-{os.getpid()}")
+    os.makedirs(tmp, exist_ok=True)
     pngs = {}
     for name, src in FRAMES.items():
         svg = open(os.path.join(HERE, "runcat", src)).read().replace("#ffffff", color)
-        pngs[name] = os.path.join(CACHE, name + ".png")
+        pngs[name] = os.path.join(tmp, name + ".png")
         subprocess.run(["magick", "-background", "none", "-density", "48", "svg:-", pngs[name]],
                        input=svg.encode(), check=True)
     # Crop every frame to the union of their bounding boxes so the cat doesn't jump between frames.
@@ -39,6 +41,9 @@ def render_frames():
     x1, y1 = max(b[2] for b in boxes), max(b[3] for b in boxes)
     for p in pngs.values():
         subprocess.run(["magick", p, "-crop", f"{x1 - x0}x{y1 - y0}+{x0}+{y0}", "+repage", p], check=True)
+    for name, p in pngs.items():
+        os.replace(p, os.path.join(CACHE, name + ".png"))
+    os.rmdir(tmp)
 
 
 def cpu_times():

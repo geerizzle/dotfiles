@@ -20,6 +20,11 @@ window#waybar {
 
 #workspaces button {
   color: @foreground;
+  /* Symbols font gives icons their real width; the text Nerd Font lets them spill right */
+  font-family: "Symbols Nerd Font";
+  font-weight: normal;
+  padding: 0;
+  min-width: 26px;
   box-shadow: inset 0 -3px transparent;
 }
 

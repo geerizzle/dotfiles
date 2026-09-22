@@ -8,7 +8,7 @@ effect-blur=10x3
 indicator
 indicator-radius=110
 clock
-timestr=%I:%M
+timestr=%H:%M
 datestr=%a, %d %b
 font=GoogleSansCode Nerd Font
 

@@ -24,7 +24,7 @@ sudo pacman -S sway swayidle swaybg waybar wofi alacritty kanshi swaync swayosd 
 
 # Waybar media module (mediaplayer.py), volume, brightness, screenshots
 sudo pacman -S playerctl python-gobject libpulse pavucontrol brightnessctl \
-  grim slurp wl-clipboard imagemagick htop   # imagemagick: runcat frames
+  grim slurp wl-clipboard satty imagemagick htop   # imagemagick: runcat frames
 
 # AUR: lock screen with blur and clock; pywal
 yay -S swaylock-effects python-pywal16
@@ -43,8 +43,6 @@ stow */          # not `stow *`: that also matches README.md
 
 - Only NVIDIA (proprietary driver): hide sway's unsupported GPU warning:
   `echo 'SWAY_UNSUPPORTED_GPU=true' | sudo tee -a /etc/environment`
-- The waybar, wofi and swaylock configs import from `/home/duduya/.cache/wal/`.
-  If your username is different, change those paths.
 
 # Scripts (`scripts/.local/bin`)
 - `wallpaper [image]`: sets the wallpaper and runs pywal. It reloads sway and waybar
