@@ -48,6 +48,7 @@ stow */          # not `stow *`: that also matches README.md
 - `wallpaper [image]`: sets the wallpaper and runs pywal. It reloads sway and waybar
   and updates the lock screen background. With no argument, it picks a random image from `~/Pictures`.
 - `waybar/.config/waybar/runcat.py`: RunCat CPU module; the cat runs faster with CPU load (frames: GPL-3, see `runcat/NOTICE.md`).
+- `wallpaper-picker`: wofi menu of `~/Pictures` with thumbnails that runs `wallpaper` on the choice (Super+Shift+W).
 - `powermenu`: wofi menu to lock, log out, suspend, reboot or shut down (Super+Shift+E).
 
 Sway starts without `~/.local/bin` in `PATH`. Bind the scripts with their full path

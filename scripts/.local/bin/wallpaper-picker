@@ -1,0 +1,16 @@
+#!/bin/sh
+# Wofi menu of ~/Pictures with thumbnails; runs the wallpaper script on the choice.
+dir=~/Pictures
+thumbs=~/.cache/wallpaper-thumbs
+mkdir -p "$thumbs"
+
+choice=$(find "$dir" -maxdepth 1 -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' \) ! -name '*_grim.png' -printf '%f\n' | sort |
+  while IFS= read -r f; do
+    t="$thumbs/$f.png"
+    # full-size wallpapers make wofi slow to open, so show small cached thumbnails
+    [ "$t" -nt "$dir/$f" ] || magick "$dir/$f[0]" -thumbnail 96x96^ -gravity center -extent 96x96 "$t"
+    printf 'img:%s:text:%s\n' "$t" "$f"
+  done | wofi --dmenu --prompt wallpaper --width 500 --height 500 --cache-file /dev/null \
+    -D image_size=80 -D dmenu-parse_action=true)
+
+[ -n "$choice" ] && exec ~/.local/bin/wallpaper "$dir/$choice"
