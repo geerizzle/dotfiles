@@ -1,0 +1,12 @@
+#!/bin/sh
+# Power menu via wofi dmenu mode; Esc cancels.
+choice=$(printf '%s\n' "  Lock" "  Logout" "  Suspend" "  Reboot" "  Shutdown" \
+  | wofi --dmenu --width 200 --height 200 --prompt power --cache-file /dev/null)
+
+case "$choice" in
+  *Lock)     swaylock -f -c 000000 ;;
+  *Logout)   swaymsg exit ;;
+  *Suspend)  systemctl suspend ;;
+  *Reboot)   systemctl reboot ;;
+  *Shutdown) systemctl poweroff ;;
+esac

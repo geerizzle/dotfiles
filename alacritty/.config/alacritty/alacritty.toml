@@ -1,0 +1,13 @@
+[general]
+import = ["/home/duduya/.cache/wal/colors-alacritty.toml"]
+
+[window]
+opacity = 0.8
+
+[font]
+normal = { family = "GoogleSansCode Nerd Font Mono", style = "Medium" }
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001b\r"

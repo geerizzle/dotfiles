@@ -3,6 +3,11 @@ profile docked {
     output eDP-1 disable
 }
 
+profile two-monitor {
+    output 'Microstep MSI G32C4 0x00000166' position 1920,0 mode 1920x1080@143.9980 transform normal scale 1.00
+    output eDP-1 enable position 0,0 mode 1920x1080@165.02 scale 1.00 transform normal
+}
+
 output 'Microstep MSI G32C4 0x00000166' {
     position 0,0
     mode 1920x1080@143.9980

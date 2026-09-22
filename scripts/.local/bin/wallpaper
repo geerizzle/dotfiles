@@ -1,0 +1,11 @@
+#!/bin/sh
+# Usage: wallpaper [image]   (no arg = random image from ~/Pictures, skipping grim screenshots)
+set -e
+img=${1:-$(find ~/Pictures -maxdepth 1 -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' \) ! -name '*_grim.png' | shuf -n1)}
+[ -f "$img" ] || { echo "no such image: $img" >&2; exit 1; }
+img=$(realpath "$img")
+
+# wal writes colors-sway ($wallpaper + colors) and colors-waybar.css;
+# a sway reload applies the wallpaper/borders and respawns waybar with the new CSS.
+wal -q -n -i "$img"
+swaymsg reload >/dev/null

@@ -1,9 +1,17 @@
 [user]
 	email = dekidudukovic@gmail.com
-	name = geerizzle
+	name = Dejan Dudukovic
+	signingkey = 7CFD72BA189EC02C
+[commit]
+  gpgsign = true
 [core]
 	editor = vim
 [help]
 	autocorrect = 1
 [alias]
 	lga = log --graph --oneline --all --decorate
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

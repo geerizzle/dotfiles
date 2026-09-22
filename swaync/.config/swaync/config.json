@@ -88,7 +88,7 @@
                 },
                 {
                     "label": "󰂯",
-                    "command": "bluetui"
+                    "command": "alacritty --class bluetui-float -e bluetui"
                 },
                 {
                     "label": "",
