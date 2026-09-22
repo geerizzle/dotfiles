@@ -171,6 +171,10 @@ input "type:keyboard" {
     bindsym $mod+w layout tabbed
     # Pick a wallpaper from ~/Pictures (reruns pywal)
     bindsym $mod+Shift+w exec ~/.local/bin/wallpaper-picker
+    # Search files in ~ by name and open with the default app
+    bindsym $mod+Shift+s exec ~/.local/bin/file-search
+    # Duplicate / extend / single monitor for any two outputs
+    bindsym $mod+Shift+m exec ~/.local/bin/monitor-picker
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen

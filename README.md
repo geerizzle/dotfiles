@@ -26,6 +26,9 @@ sudo pacman -S sway swayidle swaybg waybar wofi alacritty kanshi swaync swayosd 
 sudo pacman -S playerctl python-gobject libpulse pavucontrol brightnessctl \
   grim slurp wl-clipboard satty imagemagick htop   # imagemagick: runcat frames
 
+# File search (Super+Shift+S): finder, image viewer, PDF viewer
+sudo pacman -S fd imv zathura zathura-pdf-poppler
+
 # AUR: lock screen with blur and clock; pywal
 yay -S swaylock-effects python-pywal16
 ```
@@ -50,6 +53,10 @@ stow */          # not `stow *`: that also matches README.md
 - `waybar/.config/waybar/runcat.py`: RunCat CPU module; the cat runs faster with CPU load (frames: GPL-3, see `runcat/NOTICE.md`).
 - `wallpaper-picker`: wofi menu of `~/Pictures` with thumbnails that runs `wallpaper` on the choice (Super+Shift+W).
 - `waybar/.config/waybar/weather.py`: weather from wttr.in; click it to pick a city (`auto` = detect by IP).
+- `file-search`: type a name, pick a file in `~` (image thumbnails, Papirus type icons), open it with `xdg-open` (Super+Shift+S).
+  Make imv the default image viewer (zathura already handles PDFs):
+  `grep ^MimeType= /usr/share/applications/imv.desktop | cut -d= -f2 | tr ';' '\n' | xargs -n1 xdg-mime default imv.desktop`
+- `monitor-picker`: duplicate, extend (either order) or single monitor for any two outputs (Super+Shift+M). Duplicate puts both at `0,0`, since sway has no real mirroring. `--dry-run` prints the commands.
 - `powermenu`: wofi menu to lock, log out, suspend, reboot or shut down (Super+Shift+E).
 
 Sway starts without `~/.local/bin` in `PATH`. Bind the scripts with their full path

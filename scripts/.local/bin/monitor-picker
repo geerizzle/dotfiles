@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+# Super+Shift+M: wofi menu to duplicate, extend or pick one of two monitors, for any pair.
+# "Duplicate" puts both outputs at 0,0 (sway has no real mirroring; overlapping outputs show the same area).
+# --dry-run prints the sway command instead of applying it.
+import json, subprocess, sys
+
+
+def outputs():
+    return json.loads(subprocess.check_output(["swaymsg", "-t", "get_outputs"]))
+
+
+def best_mode(o, size=None):
+    # Keep the current mode when active; otherwise the largest (or `size`-matching) mode with the highest refresh.
+    if size is None and o.get("active") and o.get("current_mode"):
+        return o["current_mode"]
+    modes = [m for m in o["modes"] if size is None or (m["width"], m["height"]) == size]
+    return max(modes, key=lambda m: (m["width"] * m["height"], m["refresh"])) if modes else None
+
+
+def mode_str(m):
+    return f'{m["width"]}x{m["height"]}@{m["refresh"] / 1000:.3f}Hz'
+
+
+def scale(o):
+    s = o.get("scale") or 1.0
+    return s if o.get("active") and s > 0 else 1.0
+
+
+def enable(o, m, x, s):
+    return f'output {o["name"]} enable mode {mode_str(m)} position {x} 0 scale {s}'
+
+
+def commands(a, b):
+    ma, mb = best_mode(a), best_mode(b)
+    sa, sb = scale(a), scale(b)
+    label = lambda o: f'{o["name"]} ({o["make"]} {o["model"]})'.replace("Unknown ", "")
+    width = lambda m, s: round(m["width"] / s)  # logical width, what sway positions by
+    dup_b = best_mode(b, (ma["width"], ma["height"])) or mb  # same resolution as A if B supports it
+    return {
+        "Duplicate": f'{enable(a, ma, 0, sa)}; {enable(b, dup_b, 0, sa if dup_b is not mb else sb)}',
+        f'Extend: {a["name"]} | {b["name"]}': f'{enable(a, ma, 0, sa)}; {enable(b, mb, width(ma, sa), sb)}',
+        f'Extend: {b["name"]} | {a["name"]}': f'{enable(b, mb, 0, sb)}; {enable(a, ma, width(mb, sb), sa)}',
+        f"Only {label(a)}": f'{enable(a, ma, 0, sa)}; output {b["name"]} disable',
+        f"Only {label(b)}": f'{enable(b, mb, 0, sb)}; output {a["name"]} disable',
+    }
+
+
+def main():
+    outs = outputs()
+    if len(outs) < 2:
+        subprocess.run(["notify-send", "monitor-picker", "Only one monitor connected"])
+        return
+    menu = commands(outs[0], outs[1])  # ponytail: first two outputs only; a third one is left as-is
+    if "--dry-run" in sys.argv:
+        for k, v in menu.items():
+            print(f"{k}\n    {v}")
+        return
+    choice = subprocess.run(["wofi", "--dmenu", "--prompt", "monitors", "--width", "420", "--height", "260",
+                             "--cache-file", "/dev/null"],
+                            input="\n".join(menu), capture_output=True, text=True).stdout.strip()
+    if choice in menu:
+        subprocess.run(["swaymsg", menu[choice]], stdout=subprocess.DEVNULL)
+
+
+if __name__ == "__main__":
+    main()

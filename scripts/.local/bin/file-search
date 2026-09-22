@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+# Super+Shift+S: type a query, pick a matching file in $HOME, open it with its default app.
+# Images get a cached thumbnail, other files their Papirus mimetype icon.
+# xdg-open picks the app by file type (imv for images, zathura for PDFs; see README).
+import hashlib, mimetypes, os, subprocess
+from concurrent.futures import ThreadPoolExecutor
+
+HOME = os.path.expanduser("~")
+CACHE = os.path.join(HOME, ".cache/file-search")
+ICON_DIRS = [os.path.join(HOME, ".local/share/icons/Papirus/48x48/mimetypes"),
+             "/usr/share/icons/Papirus/48x48/mimetypes"]
+SIZE = 48  # thumbnail/icon pixels; wofi scales to image_size
+
+
+def wofi(prompt, lines, *extra):
+    r = subprocess.run(["wofi", "--dmenu", "--prompt", prompt, "--cache-file", "/dev/null", *extra],
+                       input="\n".join(lines), capture_output=True, text=True)
+    return r.stdout.strip()
+
+
+def thumbnail(path):
+    # Keyed on path; rebuilt when the file is newer than its thumbnail.
+    out = os.path.join(CACHE, "thumbs", hashlib.sha1(path.encode()).hexdigest() + ".png")
+    try:
+        if not os.path.exists(out) or os.path.getmtime(out) < os.path.getmtime(path):
+            subprocess.run(["magick", path + "[0]", "-thumbnail", f"{SIZE}x{SIZE}^", "-gravity", "center",
+                            "-extent", f"{SIZE}x{SIZE}", out], check=True, capture_output=True, timeout=20)
+        return out
+    except (subprocess.SubprocessError, OSError):
+        return icon("image/x-generic")
+
+
+def icon(mime):
+    # Papirus ships SVGs and GTK here has no SVG loader, so convert each icon to PNG once.
+    major = mime.split("/")[0]
+    for name in (mime.replace("/", "-"), f"{major}-x-generic", "unknown"):
+        out = os.path.join(CACHE, "icons", name + ".png")
+        if os.path.exists(out):
+            return out
+        for d in ICON_DIRS:
+            svg = os.path.join(d, name + ".svg")
+            if os.path.exists(svg):
+                subprocess.run(["magick", "-background", "none", "-density", "192", svg, "-resize", f"{SIZE}x{SIZE}", out],
+                               check=True, capture_output=True)
+                return out
+    return None
+
+
+def preview(path):
+    mime = mimetypes.guess_type(path)[0] or "application/octet-stream"
+    return thumbnail(path) if mime.startswith("image/") else icon(mime)
+
+
+def main():
+    query = wofi("search files", [], "--lines", "1")
+    if not query:
+        return
+    # fd matches file names (not paths), case-insensitive; skips hidden and .gitignore'd files
+    paths = subprocess.run(["fd", "--type", "f", "--ignore-case", "--fixed-strings", "--max-results", "300",
+                            "--", query, HOME], capture_output=True, text=True).stdout.splitlines()
+    os.makedirs(os.path.join(CACHE, "thumbs"), exist_ok=True)
+    os.makedirs(os.path.join(CACHE, "icons"), exist_ok=True)
+    with ThreadPoolExecutor(8) as pool:
+        imgs = list(pool.map(preview, paths))
+    short = lambda p: "~" + p[len(HOME):] if p.startswith(HOME + "/") else p
+    lines = [f"img:{img}:text:{short(p)}" if img else short(p) for p, img in zip(paths, imgs)]
+    choice = wofi(query, lines, "--width", "700", "--height", "450",
+                  "-D", "image_size=40", "-D", "dmenu-parse_action=true")
+    if choice:
+        os.execvp("xdg-open", ["xdg-open", os.path.expanduser(choice)])
+
+
+if __name__ == "__main__":
+    main()
