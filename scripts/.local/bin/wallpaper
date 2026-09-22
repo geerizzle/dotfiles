@@ -8,4 +8,5 @@ img=$(realpath "$img")
 # wal writes colors-sway ($wallpaper + colors) and colors-waybar.css;
 # a sway reload applies the wallpaper/borders and respawns waybar with the new CSS.
 wal -q -n -i "$img"
+ln -sf "$img" ~/.cache/wal/lock-wallpaper  # swaylock blurs it itself
 swaymsg reload >/dev/null

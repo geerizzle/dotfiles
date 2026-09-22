@@ -4,7 +4,7 @@ choice=$(printf '%s\n' "  Lock" "  Logout" "  Suspend" "  Reboot" "�
   | wofi --dmenu --width 200 --height 200 --prompt power --cache-file /dev/null)
 
 case "$choice" in
-  *Lock)     swaylock -f -c 000000 ;;
+  *Lock)     swaylock -f ;;
   *Logout)   swaymsg exit ;;
   *Suspend)  systemctl suspend ;;
   *Reboot)   systemctl reboot ;;
