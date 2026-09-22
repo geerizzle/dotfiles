@@ -26,6 +26,9 @@ sudo pacman -S sway swayidle swaybg waybar wofi alacritty kanshi swaync swayosd 
 sudo pacman -S playerctl python-gobject libpulse pavucontrol brightnessctl \
   grim slurp wl-clipboard satty imagemagick htop   # imagemagick: runcat frames
 
+# Waybar bluetooth module (click opens bluetui)
+sudo pacman -S bluez bluez-utils bluetui
+
 # File search (Super+Shift+S): finder, image viewer, PDF viewer
 sudo pacman -S fd imv zathura zathura-pdf-poppler
 

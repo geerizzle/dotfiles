@@ -57,6 +57,7 @@ window#waybar {
 #pulseaudio,
 #custom-media,
 #custom-weather,
+#bluetooth,
 #tray,
 #mode,
 #scratchpad,
@@ -243,5 +244,9 @@ label:focus {
 #custom-runcat.idle { background-image: url("/home/duduya/.cache/runcat/idle.png"); }
 
 #custom-weather {
+  color: @foreground;
+}
+
+#bluetooth {
   color: @foreground;
 }

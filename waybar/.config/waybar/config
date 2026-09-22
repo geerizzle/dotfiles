@@ -2,7 +2,7 @@
 {
     "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 10, // Waybar height (to be removed for auto height)
-    "modules-left": ["sway/mode", "custom/media", "custom/runcat","memory", "idle_inhibitor"],
+    "modules-left": ["sway/mode", "custom/media", "bluetooth", "custom/runcat","memory", "idle_inhibitor"],
     "modules-center": ["sway/workspaces", "sway/scratchpad"],
     "modules-right": ["pulseaudio","battery", "network","battery#bat2", "sway/language", "custom/weather", "clock", "temperature", "tray"],
     "sway/workspaces": {
@@ -69,6 +69,20 @@
         "interval": 900,
         "signal": 8,
         "on-click": "$HOME/.config/waybar/weather.py pick"
+    },
+    "bluetooth": {
+        // Symbols font keeps the icon centered (see #workspaces button in style.css)
+        "format": "<span font_family=\"Symbols Nerd Font\">󰂯</span>",
+        "format-connected": "<span font_family=\"Symbols Nerd Font\">󰂱</span> {num_connections}",
+        "format-off": "<span font_family=\"Symbols Nerd Font\">󰂲</span>",
+        "format-disabled": "<span font_family=\"Symbols Nerd Font\">󰂲</span>",
+        "format-no-controller": "",
+        "tooltip-format": "{controller_alias}: no devices connected",
+        "tooltip-format-off": "Bluetooth is off",
+        "tooltip-format-connected": "{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}  {device_battery_percentage}%",
+        "on-click": "alacritty --class bluetui -e bluetui"
     },
     "tray": {
         "spacing": 10
