@@ -214,3 +214,18 @@ label:focus {
   background-color: @color4;
   color: @background;
 }
+
+/* RunCat: frames are PNGs rendered by runcat.py; the class picks the frame */
+#custom-runcat {
+  padding: 0 10px 0 36px;
+  margin: 6px 3px;
+  background-repeat: no-repeat;
+  background-position: 8px center;
+  background-size: auto 16px;
+}
+#custom-runcat.f0 { background-image: url("/home/duduya/.cache/runcat/f0.png"); }
+#custom-runcat.f1 { background-image: url("/home/duduya/.cache/runcat/f1.png"); }
+#custom-runcat.f2 { background-image: url("/home/duduya/.cache/runcat/f2.png"); }
+#custom-runcat.f3 { background-image: url("/home/duduya/.cache/runcat/f3.png"); }
+#custom-runcat.f4 { background-image: url("/home/duduya/.cache/runcat/f4.png"); }
+#custom-runcat.idle { background-image: url("/home/duduya/.cache/runcat/idle.png"); }

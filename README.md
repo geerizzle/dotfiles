@@ -19,13 +19,12 @@ Monitor Manager: Kanshi
 sudo pacman -S sway swayidle swaybg waybar wofi alacritty kanshi swaync swayosd \
   stow zsh neovim starship
 
-# Fonts and icons
-sudo pacman -S ttf-googlesanscode-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono \
+# Fonts and icons sudo pacman -S ttf-googlesanscode-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono \
   papirus-icon-theme
 
 # Waybar media module (mediaplayer.py), volume, brightness, screenshots
 sudo pacman -S playerctl python-gobject libpulse pavucontrol brightnessctl \
-  grim slurp wl-clipboard
+  grim slurp wl-clipboard imagemagick htop   # imagemagick: runcat frames
 
 # AUR: lock screen with blur and clock; pywal
 yay -S swaylock-effects python-pywal16
@@ -50,6 +49,7 @@ stow */          # not `stow *`: that also matches README.md
 # Scripts (`scripts/.local/bin`)
 - `wallpaper [image]`: sets the wallpaper and runs pywal. It reloads sway and waybar
   and updates the lock screen background. With no argument, it picks a random image from `~/Pictures`.
+- `waybar/.config/waybar/runcat.py`: RunCat CPU module; the cat runs faster with CPU load (frames: GPL-3, see `runcat/NOTICE.md`).
 - `powermenu`: wofi menu to lock, log out, suspend, reboot or shut down (Super+Shift+E).
 
 Sway starts without `~/.local/bin` in `PATH`. Bind the scripts with their full path
@@ -60,4 +60,3 @@ Sway starts without `~/.local/bin` in `PATH`. Bind the scripts with their full p
   not `~/.config/swaylock/config` (that file links to the rendered copy in `~/.cache/wal/`).
 - If Papirus is installed by hand in `~/.local/share/icons`, build its icon cache, or wofi opens slowly:
   `gtk-update-icon-cache -f ~/.local/share/icons/Papirus`
-- `rofi` and `baraction` are old configs. They are not used by the current setup.

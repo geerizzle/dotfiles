@@ -4,7 +4,7 @@
     "height": 10, // Waybar height (to be removed for auto height)
     "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "custom/media"],
     "modules-center": ["sway/window"],
-    "modules-right": ["pulseaudio", "backlight","cpu","memory","battery", "network","battery#bat2", "sway/language", "clock", "tray"],
+    "modules-right": ["pulseaudio", "backlight","custom/runcat","memory","battery", "network","battery#bat2", "sway/language", "clock", "tray"],
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
@@ -63,6 +63,11 @@
             "mode": "month",
             "format": { "today": "<span color='#E29B66'><b><u>{}</u></b></span>" }
         }
+    },
+    "custom/runcat": {
+        "exec": "$HOME/.config/waybar/runcat.py",
+        "return-type": "json",
+        "on-click": "alacritty -e htop"
     },
     "cpu": {
         "format": "{usage}% ",
