@@ -109,9 +109,14 @@
         "format": "{}% 󰍛"
     },
     "temperature": {
+        // CPU package sensor (Intel coretemp "Package id 0"); the default thermal_zone0 is a board sensor.
+        // hwmon-path-abs survives the hwmonN renumbering between boots.
+        "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
+        "input-filename": "temp1_input",
+        "tooltip-format": "CPU package {temperatureC}°C",
         "critical-threshold": 80,
         "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+        "format-icons": ["", "", "", "", ""]
     },
     "backlight": {
         "format": "{percent}% {icon}",
