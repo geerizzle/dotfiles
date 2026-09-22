@@ -10,7 +10,7 @@ Editor: NeoVim
 Terminal: Alacritty w/ Starship
 Launcher: Wofi
 Notifications: SwayNC
-OSD: SwayOSD
+OSD: SwayOSD (pywal colors)
 Monitor Manager: Kanshi
 
 # Install
@@ -49,6 +49,7 @@ stow */          # not `stow *`: that also matches README.md
   and updates the lock screen background. With no argument, it picks a random image from `~/Pictures`.
 - `waybar/.config/waybar/runcat.py`: RunCat CPU module; the cat runs faster with CPU load (frames: GPL-3, see `runcat/NOTICE.md`).
 - `wallpaper-picker`: wofi menu of `~/Pictures` with thumbnails that runs `wallpaper` on the choice (Super+Shift+W).
+- `waybar/.config/waybar/weather.py`: weather from wttr.in; click it to pick a city (`auto` = detect by IP).
 - `powermenu`: wofi menu to lock, log out, suspend, reboot or shut down (Super+Shift+E).
 
 Sway starts without `~/.local/bin` in `PATH`. Bind the scripts with their full path

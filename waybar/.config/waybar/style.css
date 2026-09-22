@@ -20,11 +20,12 @@ window#waybar {
 
 #workspaces button {
   color: @foreground;
-  /* Symbols font gives icons their real width; the text Nerd Font lets them spill right */
+  /* Icons: Symbols font at its only weight; GTK centers them in min-width,
+     and the 2px right padding offsets the font drawing them ~1px right at this size */
   font-family: "Symbols Nerd Font";
   font-weight: normal;
-  padding: 0;
-  min-width: 26px;
+  padding: 0 2px 0 0;
+  min-width: 24px;
   box-shadow: inset 0 -3px transparent;
 }
 
@@ -55,6 +56,7 @@ window#waybar {
 #network,
 #pulseaudio,
 #custom-media,
+#custom-weather,
 #tray,
 #mode,
 #scratchpad,
@@ -170,7 +172,8 @@ label:focus {
 }
 
 #temperature {
-  background-color: #f0932b;
+  background-color: @color2;
+  color: @background;
 }
 
 #temperature.critical {
@@ -183,6 +186,10 @@ label:focus {
 
 #idle_inhibitor {
   background-color: @color8;
+  /* Symbols font at its only weight so the icon is not offset right (see #workspaces button) */
+  font-family: "Symbols Nerd Font";
+  font-weight: normal;
+  padding: 0 8px;
 }
 
 #idle_inhibitor.activated {
@@ -234,3 +241,7 @@ label:focus {
 #custom-runcat.f3 { background-image: url("/home/duduya/.cache/runcat/f3.png"); }
 #custom-runcat.f4 { background-image: url("/home/duduya/.cache/runcat/f4.png"); }
 #custom-runcat.idle { background-image: url("/home/duduya/.cache/runcat/idle.png"); }
+
+#custom-weather {
+  color: @foreground;
+}

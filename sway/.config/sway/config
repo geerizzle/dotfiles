@@ -275,4 +275,5 @@ bar {
 include /etc/sway/config.d/*
 
 exec wal -R -n
-exec swayosd-server
+# exec_always: restart on reload so the OSD picks up new pywal colors
+exec_always "pkill -x swayosd-server; swayosd-server"

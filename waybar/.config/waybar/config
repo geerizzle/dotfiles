@@ -4,7 +4,7 @@
     "height": 10, // Waybar height (to be removed for auto height)
     "modules-left": ["sway/mode", "custom/media", "custom/runcat","memory", "idle_inhibitor"],
     "modules-center": ["sway/workspaces", "sway/scratchpad"],
-    "modules-right": ["pulseaudio","battery", "network","battery#bat2", "sway/language", "clock", "temperature", "tray"],
+    "modules-right": ["pulseaudio","battery", "network","battery#bat2", "sway/language", "custom/weather", "clock", "temperature", "tray"],
     "sway/workspaces": {
         "format": "{icon}",
         "format-icons": {
@@ -62,6 +62,13 @@
     "sway/language": {
         "format": " {short}",
         "tooltip-format": "{long}"
+    },
+    "custom/weather": {
+        "exec": "$HOME/.config/waybar/weather.py",
+        "return-type": "json",
+        "interval": 900,
+        "signal": 8,
+        "on-click": "$HOME/.config/waybar/weather.py pick"
     },
     "tray": {
         "spacing": 10
